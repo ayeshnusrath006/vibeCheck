@@ -16,17 +16,32 @@ No frameworks. No libraries. Just code.
 
 - You pick a mood — Happy, Sad, Chill, Hype, Focus or Angry
 - The app instantly shows you songs that match that vibe
-- Built completely from scratch as a beginner project
+- Search any song or artist to filter results live
+- Click any song to open it directly on YouTube
+
+---
+
+## ✨ Features
+
+- 6 moods with 6 songs each (36 songs total)
+- Live search bar that filters as you type
+- Every song is a clickable YouTube link
+- Clean dark UI with hover effects
+- Google Fonts (Space Grotesk)
 
 ---
 
 ## 🧠 What I learned building this
 
 - HTML structure and semantic tags
-- CSS styling — colors, borders, hover effects, border-radius
+- CSS styling — colors, fonts, borders, hover effects, transitions
+- CSS Flexbox for button layout
 - JavaScript functions, objects, arrays and for loops
-- How to connect HTML and JavaScript using getElementById
-- How to deploy a website using GitHub Pages
+- DOM manipulation using getElementById and querySelector
+- String methods — replace(), toLowerCase(), includes()
+- Array filter() method
+- Event listeners — onclick and addEventListener
+- How to deploy a live website using GitHub Pages
 
 ---
 
