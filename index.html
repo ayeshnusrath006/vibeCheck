@@ -1,36 +1,62 @@
 <!DOCTYPE html>
-<html lang = "en"
+<html lang = "en">
 
 <head>
 	<title>VibeCheck</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet" />		
+	
 	<style>
+		
+
 		body{
-			background-color: #0d0d12;;
+			background-color: #0d0d12;
 			color: white;
-			font-family: Arial, sans-serif;
+			font-family: 'Space Grotesk', Arial, sans-serif;
 			text-align: center;
-			padding: 40px;
+			padding: 40px 20px;
+			margin: 0;
 		}
 		
 		h1 {
 			font-size: 48px;
-			margin-bottom: 10px;
+			font-weight: 700;
+			letter-spacing: -1px;
+			margin-bottom: 8px;
 		}
 
 		p{
-			color: #888aa;
-			font-size: 18px;
+			color: #8888aa;
+			font-size: 16px;
+			margin-bottom: 8px;
 		}
+
+		.mood-grid {
+
+    			display: flex;
+
+    			flex-wrap: wrap;
+
+    			justify-content: center;
+
+    			gap: 12px;
+
+    			margin: 24px auto;
+
+    			max-width: 600px;
+
+  		}
 
 		button{
 			background-color: #1e1e2a;
 			color: white;
 			border: 2px solid #2e2e3e;
-			padding: 15px 25px;
-			margin: 8px;
-			font-size: 16px;
-			border-radius: 12px;
+			padding: 14px 22px;
+			font-size: 15px;
+			font-family: 'Space Grotesk', Arial, sans-serif;
+			border-radius: 14px;
 			cursor: pointer;
+			transition: transform 0.2s, border-color 0.2s;
 		}
 
 		button:hover{
@@ -39,15 +65,62 @@
 		}
 
 		#song-list {
-      			margin-top: 40px;
+      			margin-top: 32px;
       			background-color: #1e1e2a;
       			border: 1px solid #2e2e3e;
-      			border-radius: 16px;
-      			padding: 30px;
+      			border-radius: 20px;
+      			padding: 32px;
       			max-width: 500px;
       			margin-left: auto;
      			margin-right: auto;
    		}
+
+		#search-box{
+			padding: 12px 20px;
+			font-size: 16px;
+			font-family: 'Space Grotesk', Arial, sans-serif;
+			border-radius: 12px;
+			border: 2px solid #2e2e3e;
+			background-color: #1e1e2e;
+			color: white;
+			width: 300px;
+			margin-bottom: 24px;
+			outline: none;
+			transition: border-color 0.2s;
+		}
+
+		#search-box:focus{
+			border-color: white;
+		}
+
+		#song-list h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    #song-list p {
+      background-color: #16161f;
+      border: 1px solid #2e2e3e;
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+      text-align: left;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    #song-list p:hover {
+      border-color: white;
+      transform: translateX(4px);
+    }
+
+    #song-list a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+    }
+
 	</style>
 </head>
 
@@ -56,13 +129,14 @@
 	<h1>&#127925;VibeCheck</h1>
 	<p>Pick your mood. Get your soundtrack.</p>
 	<p>How are you feeling?</p>
-	<div>
-		<button onclick = "showSongs('happy')">&#128516; Happy</button>
-		<button onclick = "showSongs('sad')">&#128546; Sad</button>
-		<button onclick = "showSongs('chill')">&#128524; Chill</button>
-		<button onclick = "showSongs('hype')">&#128293; Hype</button>
-		<button onclick = "showongs('focus')">&#129504; Focus</button>
-		<button onclick = "showSongs('angry')">&#128548; Angry</button>
+	<input type = "text" id = "search-box" placeholder = "Search a song or artist..."/>
+	<div class = "mood-grid">
+		<button class="" data-mood="happy" onclick = "showSongs('happy')">&#128516; Happy</button>
+		<button class="" data-mood="sad" onclick = "showSongs('sad')">&#128546; Sad</button>
+		<button class="" data-mood="chill" onclick = "showSongs('chill')">&#128524; Chill</button>
+		<button class="" data-mood="hype" onclick = "showSongs('hype')">&#128293; Hype</button>
+		<button class="" data-mood="focus" onclick = "showSongs('focus')">&#129504; Focus</button>
+		<button class="" data-mood="angry" onclick = "showSongs('angry')">&#128548; Angry</button>
 	</div>
 
 	<div id = "song-list">
@@ -71,25 +145,76 @@
 
 	<script>
 		function showSongs(mood) {
+			document.querySelectorAll("button").forEach(function(btn) {
+
+    				btn.classList.remove("active");
+
+  			});
+
+  			document.querySelector("[data-mood='" + mood + "']").classList.add("active");
+
 			var songs = {
-
-        			happy: ["Can't Stop the Feeling - Justin Timberlake", "Levitating - Dua Lipa", "Happy - Pharrell Williams"],
-
-        			sad:   ["Someone Like You - Adele", "Fix You - Coldplay", "Skinny Love - Bon Iver"],
-
-        			chill: ["Sunset Lover - Petit Biscuit", "Electric Feel - MGMT", "coffee - beabadoobee"],
-
-        			hype:  ["HUMBLE. - Kendrick Lamar", "Lose Yourself - Eminem", "Thunder - Imagine Dragons"],
-
-        			focus: ["Experience - Ludovico Einaudi", "Time - Hans Zimmer", "Strobe - Deadmau5"],
-
-        			angry: ["Killing in the Name - RATM", "Given Up - Linkin Park", "Duality - Slipknot"]
-
-      			};
-
-
+  happy: [
+    "Can't Stop the Feeling - Justin Timberlake",
+    "Levitating - Dua Lipa",
+    "Happy - Pharrell Williams",
+    "Blinding Lights - The Weeknd",
+    "Good as Hell - Lizzo",
+    "Shake It Off - Taylor Swift"
+  ],
+  sad: [
+    "Someone Like You - Adele",
+    "Fix You - Coldplay",
+    "Skinny Love - Bon Iver",
+    "The Night We Met - Lord Huron",
+    "Hurt - Johnny Cash",
+    "Let Her Go - Passenger"
+  ],
+  chill: [
+    "Sunset Lover - Petit Biscuit",
+    "Electric Feel - MGMT",
+    "coffee - beabadoobee",
+    "Breathe - Pink Floyd",
+    "Ivy - Frank Ocean",
+    "Banana Pancakes - Jack Johnson"
+  ],
+  hype: [
+    "HUMBLE. - Kendrick Lamar",
+    "Lose Yourself - Eminem",
+    "Thunder - Imagine Dragons",
+    "Sicko Mode - Travis Scott",
+    "Power - Kanye West",
+    "GODS - NewJeans"
+  ],
+  focus: [
+    "Experience - Ludovico Einaudi",
+    "Time - Hans Zimmer",
+    "Strobe - Deadmau5",
+    "Comptine - Yann Tiersen",
+    "Intro - The xx",
+    "Weightless - Marconi Union"
+  ],
+  angry: [
+    "Killing in the Name - RATM",
+    "Given Up - Linkin Park",
+    "Duality - Slipknot",
+    "Break Stuff - Limp Bizkit",
+    "Bulls on Parade - RATM",
+    "Chop Suey - System of a Down"
+  ]
+};
       			var list = songs[mood];
+			var searchWord = document.getElementById("search-box").value.toLowerCase();
 
+			if (searchWord !== "") {
+
+  				list = list.filter(function(song) {
+
+    					return song.toLowerCase().includes(searchWord);
+  
+				});
+
+			}
       			var box = document.getElementById("song-list");
 
 
@@ -98,12 +223,22 @@
 
      	 		for (var i = 0; i < list.length; i++) {
 
-        			box.innerHTML = box.innerHTML + "<p>" + list[i] + "</p>";
-
+				var songName = list[i];
+				var searchQuery = songName.replace(/ /g, "+").replace(/'/g, "");
+				var youtubeLink = "https://www.youtube.com/results?search_query=" + searchQuery;
+        			box.innerHTML = box.innerHTML + "<p><a href='" + youtubeLink + "' target='_blank'>" + songName + "</a></p>";
       			}
 
 
     		}
+		
+		document.getElementById("search-box").addEventListener("input", function() {
+  var activeButton = document.querySelector("button.active");
+  if (activeButton) {
+    var mood = activeButton.getAttribute("data-mood");
+    showSongs(mood);
+  }
+});
 	</script>
 </body>
 
